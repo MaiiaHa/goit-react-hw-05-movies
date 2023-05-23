@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkgoit_react_hw_05_movies=self.webpackChunkgoit_react_hw_05_movies||[]).push([[357],{357:function(e,s,i){i.r(s);var t=i(689),o=i(184);s.default=function(){var e=(0,t.UO)().movieId;return console.log(e),(0,o.jsxs)("div",{children:["Reviews request ",e]})}}}]);
+//# sourceMappingURL=357.4418f651.chunk.js.map
