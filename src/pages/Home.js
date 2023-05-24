@@ -9,7 +9,7 @@ const Home = () => {
 
   useEffect(() => {
     getTrendingMovies(activePage)
-      .then(({ page, results }) =>
+      .then(({ results }) =>
         setMoviesList(prevRes => {
           return [...prevRes, ...results];
         })
