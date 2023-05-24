@@ -9,10 +9,11 @@ const Home = () => {
 
   useEffect(() => {
     getTrendingMovies(activePage)
-      .then(({ results }) =>
-        setMoviesList(prevRes => {
-          return [...prevRes, ...results];
-        })
+      .then(
+        response => console.log(response)
+        // setMoviesList(prevRes => {
+        //   return [...prevRes, ...results];
+        // })
       )
       .catch(err => console.log(err))
       .finally(setLoading(true));
