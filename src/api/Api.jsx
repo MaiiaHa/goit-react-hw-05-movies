@@ -1,23 +1,25 @@
-import axios from 'axios';
+// import axios from 'axios';
 
-const KEY = '34588497-3719c03793052fb5df7f8aa6e';
-const URL = 'https://pixabay.com/api/';
+//===== all
+// 'https://api.themoviedb.org/3/trending/movie/day?language=en-US',
+// /trending/get-trending список найпопулярніших фільмів на сьогодні для створення колекції на головній сторінці.
 
-export async function fetchInput(searchInput, currentPage) {
+export async function getTrendingMovies() {
+  const KEY = '319d5522e2117aa6383989c80b35f4f5';
+
   const options = {
-    params: {
-      key: KEY,
-      q: searchInput,
-      page: currentPage,
-      image_type: 'photo',
-      orientation: 'horizontal',
-      safesearch: true,
-      per_page: 12,
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      // Authorization: 'Bearer 319d5522e2117aa6383989c80b35f4f5',
     },
   };
 
-  const { data } = await axios.get(URL, options);
-  // console.log(response); // const response = {data: {…}, status: 200, statusText: '', headers: AxiosHeaders, config: {…}, …}
-  // console.log(data); //{total: 19498, totalHits: 500, hits: Array(12)}
-  return data;
+  fetch(
+    `https://api.themoviedb.org/3/trending/all/day?language=en-US&api_key=${KEY}`,
+    options
+  )
+    .then(response => response.json())
+    .then(response => console.log(response))
+    .catch(err => console.error(err));
 }

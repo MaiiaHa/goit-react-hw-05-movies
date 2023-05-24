@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 const Reviews = () => {
   const { movieId } = useParams();
-  console.log(movieId);
+  // console.log(movieId);
 
   // useEffect(() => {
   // //http zapros

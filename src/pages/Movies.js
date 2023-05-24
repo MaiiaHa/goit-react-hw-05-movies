@@ -18,6 +18,20 @@ const Movies = () => {
 
   useEffect(() => {
     //http zapros
+    //   const options = {
+    //     method: 'GET',
+    //     headers: {
+    //       accept: 'application/json',
+    //       Authorization: 'Bearer 319d5522e2117aa6383989c80b35f4f5',
+    //     },
+    //   };
+    //   fetch(
+    //     'https://api.themoviedb.org/3/trending/movie/day?language=en-US',
+    //     options
+    //   )
+    //     .then(response => response.json())
+    //     .then(response => console.log(response))
+    //     .catch(err => console.error(err));
   }, []);
 
   const updateQueryString = e => {
@@ -32,7 +46,8 @@ const Movies = () => {
   };
 
   const visibleMovies = movies.filter(movie => movie.includes(movieId));
-  console.log(location);
+  // console.log(location);
+
   return (
     <div>
       <input type="text" value={movieId} onChange={updateQueryString}></input>
@@ -43,8 +58,8 @@ const Movies = () => {
         Movies :
         {visibleMovies.map(movie => {
           return (
-            <li>
-              <Link key={movie} to={`${movie}`} state={{ from: location }}>
+            <li key={movie}>
+              <Link to={`${movie}`} state={{ from: location }}>
                 {/* // '/movies/:movieId' – компонент MovieDetails, сторінка з */}
                 {/* детальною інформацією про кінофільм. */}
                 {movie}
