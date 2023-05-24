@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getTrendingMovies } from '../api/Api';
 import Button from '../components/Button';
+import MoviesGallery from 'components/MoviesGallery/MoviesGallery';
 
 const Home = () => {
   const [moviesList, setMoviesList] = useState([]);
@@ -21,10 +22,11 @@ const Home = () => {
   const renderMore = () => {
     setActivePage(activePage => activePage + 1);
   };
-
+  console.log(moviesList);
   return (
     <>
-      <div>Home :{moviesList} </div>
+      <MoviesGallery movies={moviesList} />
+      {/* <div>Home :{moviesList} </div> */}
       {isLoading && <Button aria-label="Load more" onClick={renderMore} />}
     </>
   );

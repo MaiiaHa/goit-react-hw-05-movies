@@ -1,9 +1,13 @@
 // import axios from 'axios';
 
+//===== img posters
+export const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
+
 //===== all
 // 'https://api.themoviedb.org/3/trending/movie/day?language=en-US',
 // /trending/get-trending список найпопулярніших фільмів на сьогодні для створення колекції на головній сторінці.
 //=====
+
 export function getTrendingMovies() {
   const KEY = '319d5522e2117aa6383989c80b35f4f5';
 
@@ -24,3 +28,4 @@ export function getTrendingMovies() {
 }
 
 // .then(response => console.log(response))
+// 'https://api.themoviedb.org/3/api_key=319d5522e2117aa6383989c80b35f4f5/fgw4rFs4XMWdJTWp1eMacHKQqbZ.jpg';

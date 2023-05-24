@@ -51,7 +51,7 @@ export const App = () => {
 
 // import Button from '../Button/Button';
 // import Searchbar from '../Searchbar/Searchbar';
-// import ImageGallery from '../ImageGallery/ImageGallery';
+// import MoviesGallery from '../MoviesGallery/MoviesGallery';
 // import { Loader } from 'components/Loader/Loader';
 // // import { toast } from 'react-toastify';
 
@@ -127,7 +127,7 @@ export const App = () => {
 //         </div>
 //       )}
 //       {status === Status.REJECTED && <div>{error.message}</div>}
-//       <ImageGallery photos={pictures} />
+//       <MoviesGallery photos={pictures} />
 //       {status === Status.RESOLVED &&
 //         pictures.length !== totalHits &&
 //         pictures.length !== 0 && (
