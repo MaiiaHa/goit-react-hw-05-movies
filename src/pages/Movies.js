@@ -1,73 +1,51 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+import { searchMovies } from '../api/Api';
+import Button from '../components/Button';
+import MoviesGallery from 'components/MoviesGallery/MoviesGallery';
+import Searchbar from 'components/Searchbar/Searchbar';
 
 const Movies = () => {
-  const [movies, setMovies] = useState([
-    'movie-01',
-    'movie-02',
-    'movie-03',
-    'movie-04',
-    'movie-05',
-  ]);
-  console.log(setMovies);
-  const location = useLocation();
+  const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const search = searchParams.get('search') ?? '';
 
-  const movieId = searchParams.get('movieId') ?? '';
-  // console.log(searchParams.get('a'));
+  const [totalResults, setTotalResults] = useState(0);
+  const [activePage, setActivePage] = useState(1);
 
   useEffect(() => {
-    //http zapros
-    //   const options = {
-    //     method: 'GET',
-    //     headers: {
-    //       accept: 'application/json',
-    //       Authorization: 'Bearer 319d5522e2117aa6383989c80b35f4f5',
-    //     },
-    //   };
-    //   fetch(
-    //     'https://api.themoviedb.org/3/trending/movie/day?language=en-US',
-    //     options
-    //   )
-    //     .then(response => response.json())
-    //     .then(response => console.log(response))
-    //     .catch(err => console.error(err));
-  }, []);
+    if (!search) {
+      return;
+    }
+
+    searchMovies(search, activePage)
+      .then(({ results, total_pages }) => {
+        setMovies(prev => [...prev, ...results]);
+        setTotalResults(total_pages);
+      })
+      .catch(err => console.log(err));
+  }, [search, activePage]);
+
+  // useMemo use !!!!!!!!!!!!!
+  // const visibleMovies = movies.filter(movie => movie.includes(search));
 
   const updateQueryString = e => {
-    const movieIdValue = e.target.value;
-
-    const movieIdSearch = movieIdValue !== '' ? { movieId: movieIdValue } : {};
-    setSearchParams(movieIdSearch);
-    // if (movieIdValue === '') {
-    //   return setSearchParams({});
-    // }
-    // setSearchParams({ movieId: movieIdValue });
+    setSearchParams({ search: e });
   };
 
-  const visibleMovies = movies.filter(movie => movie.includes(movieId));
-  // console.log(location);
+  const renderMore = () => {
+    setActivePage(activePage => activePage + 1);
+  };
 
   return (
     <div>
-      <input type="text" value={movieId} onChange={updateQueryString}></input>
-      <button type="" onClick={() => setSearchParams({ c: 'hello' })}>
-        change search params
-      </button>
-      <ul>
-        Movies :
-        {visibleMovies.map(movie => {
-          return (
-            <li key={movie}>
-              <Link to={`${movie}`} state={{ from: location }}>
-                {/* // '/movies/:movieId' – компонент MovieDetails, сторінка з */}
-                {/* детальною інформацією про кінофільм. */}
-                {movie}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+      <Searchbar onSubmit={updateQueryString} />
+
+      <MoviesGallery movies={movies} />
+
+      {movies.length !== totalResults && movies.length !== 0 && (
+        <Button aria-label="Load more" onClick={renderMore} />
+      )}
     </div>
   );
 };

@@ -1,16 +1,12 @@
 // import axios from 'axios';
 
-//===== img posters
+const KEY = '319d5522e2117aa6383989c80b35f4f5';
+
+//====== img posters
 export const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
 
-//===== all
-// 'https://api.themoviedb.org/3/trending/movie/day?language=en-US',
-// /trending/get-trending список найпопулярніших фільмів на сьогодні для створення колекції на головній сторінці.
-//=====
-
-export function getTrendingMovies() {
-  const KEY = '319d5522e2117aa6383989c80b35f4f5';
-
+//====== trending movies
+export function getTrendingMovies(page = 1) {
   const options = {
     method: 'GET',
     headers: {
@@ -20,12 +16,31 @@ export function getTrendingMovies() {
   };
 
   return fetch(
-    `https://api.themoviedb.org/3/trending/all/day?language=en-US&api_key=${KEY}`,
+    `https://api.themoviedb.org/3/trending/all/day?language=en-US&page=${page}&api_key=${KEY}`,
     options
   )
     .then(response => response.json())
     .catch(err => console.error(err));
 }
 
-// .then(response => console.log(response))
-// 'https://api.themoviedb.org/3/api_key=319d5522e2117aa6383989c80b35f4f5/fgw4rFs4XMWdJTWp1eMacHKQqbZ.jpg';
+//====== search movies
+export function searchMovies(searchInput, page = 1) {
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      // Authorization: 'Bearer 319d5522e2117aa6383989c80b35f4f5',
+    },
+  };
+
+  return fetch(
+    `https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&query=${searchInput}&page=${page}&api_key=${KEY}`,
+    options
+  )
+    .then(response => response.json())
+    .catch(err => console.error(err));
+}
+
+//====== trending movies
+
+//====== trending movies

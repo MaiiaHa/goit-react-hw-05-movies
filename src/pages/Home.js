@@ -12,6 +12,8 @@ const Home = () => {
     getTrendingMovies(activePage)
       .then(({ results }) =>
         setMoviesList(prevRes => {
+          console.log('data', prevRes);
+          console.log('data', results);
           return [...prevRes, ...results];
         })
       )
@@ -22,7 +24,7 @@ const Home = () => {
   const renderMore = () => {
     setActivePage(activePage => activePage + 1);
   };
-  console.log(moviesList);
+
   return (
     <>
       <MoviesGallery movies={moviesList} />

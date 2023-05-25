@@ -1,17 +1,22 @@
 import { Suspense } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
+import css from '../components/Searchbar/Searchbar.module.css';
 
 const Layout = () => {
   return (
     <div>
-      <header>
+      <header className={css.Searchbar}>
         <nav>
           <ul>
             <li>
-              <NavLink to="/">Home</NavLink>
+              <NavLink className={css.btn} to="/">
+                Home
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/movies">Movies</NavLink>
+              <NavLink className={css.btn} to="/movies">
+                Movies
+              </NavLink>
             </li>
           </ul>
         </nav>
