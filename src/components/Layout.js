@@ -7,7 +7,7 @@ const Layout = () => {
     <div>
       <header className={css.Searchbar}>
         <nav>
-          <ul>
+          <ul className={css.list}>
             <li>
               <NavLink className={css.btn} to="/">
                 Home
