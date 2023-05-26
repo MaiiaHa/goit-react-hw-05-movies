@@ -41,6 +41,63 @@ export function searchMovies(searchInput, page = 1) {
     .catch(err => console.error(err));
 }
 
-//====== trending movies
+//====== movie details
+export function renderMovieDetails(movie_id) {
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      // Authorization: 'Bearer 319d5522e2117aa6383989c80b35f4f5',
+    },
+  };
 
-//====== trending movies
+  return (
+    fetch(
+      `https://api.themoviedb.org/3/movie/${movie_id}?language=en-US&api_key=${KEY}`,
+      options
+    )
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .catch(err => console.error(err))
+  );
+}
+//====== cast
+export function renderCastDetails(movie_id) {
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      // Authorization: 'Bearer 319d5522e2117aa6383989c80b35f4f5',
+    },
+  };
+
+  return (
+    fetch(
+      `https://api.themoviedb.org/3/movie/${movie_id}/credits?language=en-US&api_key=${KEY}`,
+      options
+    )
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .catch(err => console.error(err))
+  );
+}
+//====== reviews
+export function renderReviewDetails(movie_id) {
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      // Authorization: 'Bearer 319d5522e2117aa6383989c80b35f4f5',
+    },
+  };
+
+  return (
+    fetch(
+      `https://api.themoviedb.org/3/movie/${movie_id}/reviews?language=en-US&page=1&api_key=${KEY}`,
+      options
+    )
+      .then(response => response.json())
+      // .then(response => console.log(response))
+      .catch(err => console.error(err))
+  );
+}

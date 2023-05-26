@@ -10,8 +10,8 @@ const MoviesGallery = ({ movies }) => {
     <ul className={css.MoviesGallery}>
       {/* <!-- Набір <li> із зображеннями --> */}
       {movies.map(({ id, ...otherData }) => {
-        // console.log('id', id);
-        return <MovieGalleryItem key={id} {...otherData} />;
+        console.log('id', id);
+        return <MovieGalleryItem key={id} id={id} {...otherData} />;
       })}
     </ul>
   );

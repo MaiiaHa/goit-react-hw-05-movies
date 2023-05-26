@@ -20,7 +20,7 @@ const Movies = () => {
 
     searchMovies(search, activePage)
       .then(({ results, total_pages }) => {
-        setMovies(prev => [...prev, ...results]);
+        setMovies([...results]);
         setTotalResults(total_pages);
       })
       .catch(err => console.log(err));
@@ -31,6 +31,7 @@ const Movies = () => {
 
   const updateQueryString = e => {
     setSearchParams({ search: e });
+    console.log(e);
   };
 
   const renderMore = () => {

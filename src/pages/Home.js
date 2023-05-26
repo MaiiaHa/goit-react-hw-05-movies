@@ -12,8 +12,8 @@ const Home = () => {
     getTrendingMovies(activePage)
       .then(({ results }) =>
         setMoviesList(prevRes => {
-          console.log('data', prevRes);
-          console.log('data', results);
+          // console.log('data', prevRes);
+          // console.log('data', results);
           return [...prevRes, ...results];
         })
       )
