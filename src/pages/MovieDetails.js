@@ -4,6 +4,7 @@ import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { renderMovieDetails } from '../api/Api';
 import { IMAGE_URL } from '../api/Api';
 import { format } from 'date-fns';
+import css from './MovieDeatails.module.css';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -22,39 +23,52 @@ const MovieDetails = () => {
   }, [movieId]);
 
   return (
-    <>
-      <Link to={backLinkLocationRef.current}> Go back </Link>
-      <img src={`${IMAGE_URL}${movie.poster_path}`} alt={movie.title} />
-      <ul>
-        <li>
-          <h1>
-            {movie.title} |
-            <span>
-              (
-              {movie.release_date
-                ? format(new Date(movie.release_date), 'yyyy')
-                : ''}
-              )
-            </span>
-          </h1>
-        </li>
-        <li>Rating: {movie.vote_average}</li>
-        <li>
-          <h3>Ganres</h3>
-          <p>{movie.genres?.map(({ name }) => name).join(', ')}</p>
-        </li>
-        <li>
-          <h3>Overview</h3>
-          <p>{movie.overview}</p>
-        </li>
-        <li>
-          <p>Runtime: {movie.runtime}</p>
-        </li>
-      </ul>
+    <div className={css.Box}>
+      <div className={css.Details}>
+        <div>
+          <Link to={backLinkLocationRef.current} className={css.BackLink}>
+            Go back
+          </Link>
+          <img
+            className={css.MovieImg}
+            src={`${IMAGE_URL}${movie.poster_path}`}
+            alt={movie.title}
+          />
+        </div>
+        <div>
+          <ul>
+            <li>
+              <h1>
+                {movie.title}
+                <span>
+                  (
+                  {movie.release_date
+                    ? format(new Date(movie.release_date), 'yyyy')
+                    : ''}
+                  )
+                </span>
+              </h1>
+            </li>
+            <li>Rating: {movie.vote_average}</li>
+            <li>
+              <h3>Ganres</h3>
+              <p>{movie.genres?.map(({ name }) => name).join(', ')}</p>
+            </li>
+            <li>
+              <h3>Overview</h3>
+              <p>{movie.overview}</p>
+            </li>
+            <li>
+              <h3>Runtime:</h3>
+              <p> {movie.runtime}</p>
+            </li>
+          </ul>
+        </div>
+      </div>
 
       <h2>Aditional information</h2>
       {/* ---------------------- */}
-      <ul>
+      <ul className={css.AdditionalInfo}>
         <li>
           <Link to="cast">cast</Link>
         </li>
@@ -65,7 +79,7 @@ const MovieDetails = () => {
       <Suspense fallback={<div>LOADING subpage...</div>}>
         <Outlet />
       </Suspense>
-    </>
+    </div>
   );
 };
 export default MovieDetails;

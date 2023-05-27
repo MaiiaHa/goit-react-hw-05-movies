@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import css from '../components/Searchbar/Searchbar.module.css';
+// import { Loader } from './Loader/Loader';
 
 const Layout = () => {
   return (
@@ -23,6 +24,7 @@ const Layout = () => {
       </header>
       <main>
         <Suspense fallback={<div>Loading...</div>}>
+          {/* <Loader /> */}
           <Outlet />
         </Suspense>
       </main>

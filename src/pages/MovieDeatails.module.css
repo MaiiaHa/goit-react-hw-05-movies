@@ -1,0 +1,15 @@
+.BackLink {
+  margin-top: 20px;
+}
+/* .MovieImg {
+} */
+.Details {
+  display: flex;
+}
+.Box {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.AdditionalInfo {
+  margin: 0;
+}
