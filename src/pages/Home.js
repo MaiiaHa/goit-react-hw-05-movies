@@ -12,8 +12,6 @@ const Home = () => {
     getTrendingMovies(activePage)
       .then(({ results }) =>
         setMoviesList(prevRes => {
-          // console.log('data', prevRes);
-          // console.log('data', results);
           return [...prevRes, ...results];
         })
       )
@@ -28,7 +26,6 @@ const Home = () => {
   return (
     <>
       <MoviesGallery movies={moviesList} />
-      {/* <div>Home :{moviesList} </div> */}
       {isLoading && <Button aria-label="Load more" onClick={renderMore} />}
     </>
   );

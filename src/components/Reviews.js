@@ -9,8 +9,6 @@ const Reviews = () => {
   const { movieId } = useParams();
   const [reviewesList, setReviewesList] = useState([]);
 
-  // console.log(movieId);
-
   useEffect(() => {
     renderReviewDetails(movieId).then(({ results, total_results }) =>
       setReviewesList([...results])

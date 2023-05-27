@@ -1,4 +1,3 @@
-//================= hooks =================
 import { useState } from 'react';
 import css from './Searchbar.module.css';
 import PropTypes from 'prop-types';
@@ -9,7 +8,6 @@ import Notiflix from 'notiflix'; // all modules
 export default function Searchbar({ onSubmit }) {
   const [value, setValue] = useState('');
 
-  // console.log(value);
   const formSubmit = event => {
     event.preventDefault();
     if (value.trim() === '') {
@@ -43,7 +41,6 @@ export default function Searchbar({ onSubmit }) {
           placeholder="Type your request"
           value={value}
           onChange={formChange}
-          // name="search"
         />
       </form>
     </header>

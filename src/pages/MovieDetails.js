@@ -11,14 +11,12 @@ const MovieDetails = () => {
   const location = useLocation();
   const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
 
-  // console.log(movieId);
-  // console.log(backLinkLocationRef);
+  //status_message if it was not fond games of trones 1399
 
   useEffect(() => {
     renderMovieDetails(movieId)
       .then(res => {
         setMovie(res);
-        // console.log(res);
       })
       .catch(err => console.log(err));
   }, [movieId]);

@@ -1,14 +1,13 @@
 //http://localhost:3000/goit-react-hw-05-movies/movies/movie-03/cast
 
 import { useParams } from 'react-router-dom';
-import { renderCastDetails, IMAGE_URL } from '../api/Api';
+import { renderCastDetails, IMAGE_URL } from '../../api/Api';
 import { useEffect, useState } from 'react';
+import css from '../Cast/Cast.module.css';
 
 export const Cast = () => {
   const { movieId } = useParams();
   const [castList, setCastList] = useState([]);
-
-  // console.log(movieId);
 
   useEffect(() => {
     renderCastDetails(movieId).then(({ cast }) =>
@@ -19,11 +18,12 @@ export const Cast = () => {
   return (
     <div>
       <h2>Casts</h2>
-      <ul className="cast">
+      <ul className={css.CastGallery}>
         {castList.map(({ profile_path, name, character, cast_id }) => {
           return (
-            <li key={cast_id}>
+            <li key={cast_id} className={css.CastGalleryItem}>
               <img
+                className={css.CastGalleryItemImage}
                 src={
                   profile_path
                     ? `${IMAGE_URL}${profile_path}`

@@ -32,8 +32,10 @@ export default function MovieGalleryItem({
           alt={title || name}
           onClick={toggleModal}
         />
-        <h2>{title || name}</h2>
-        <p>{vote_average === 0 ? '' : vote_average}</p>
+        <h2 className={css.MovieTitle}>{title || name}</h2>
+        {vote_average !== 0 && (
+          <p className={css.MovieRating}>{vote_average}</p>
+        )}
         {showModal && (
           <Modal src={`${IMAGE_URL}${poster_path}`} onClose={toggleModal} />
         )}
