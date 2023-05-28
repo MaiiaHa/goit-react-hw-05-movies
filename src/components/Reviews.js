@@ -4,20 +4,28 @@ import { useParams } from 'react-router-dom';
 import { renderReviewDetails } from '../api/Api';
 import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
+import { Loader } from './Loader/Loader';
 
 const Reviews = () => {
   const { movieId } = useParams();
   const [reviewesList, setReviewesList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    renderReviewDetails(movieId).then(({ results, total_results }) =>
-      setReviewesList([...results])
-    );
+    setIsLoading(true);
+
+    renderReviewDetails(movieId)
+      .then(({ results, total_results }) => setReviewesList([...results]))
+      .finally(() => setIsLoading(false));
   }, [movieId]);
+
+  if (reviewesList.length === 0)
+    return <div>There is no information for this movie</div>;
 
   return (
     <div>
       <h2>Reviews</h2>
+      {isLoading && <Loader />}
       <ul>
         {reviewesList.map(({ author, created_at, updated_at, content, id }) => {
           return (

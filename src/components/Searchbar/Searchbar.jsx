@@ -27,7 +27,7 @@ export default function Searchbar({ onSubmit }) {
   };
 
   return (
-    <header className={css.Searchbar}>
+    <div className={css.Searchbar}>
       <form className={css.SearchForm} onSubmit={formSubmit}>
         <button type="submit" className={css.SearchFormButton}>
           <FaSistrix fill="blue" width={40} height={40} />
@@ -38,12 +38,12 @@ export default function Searchbar({ onSubmit }) {
           type="text"
           autoComplete="off"
           autoFocus
-          placeholder="Type your request"
+          placeholder="Type your movie search"
           value={value}
           onChange={formChange}
         />
       </form>
-    </header>
+    </div>
   );
 }
 

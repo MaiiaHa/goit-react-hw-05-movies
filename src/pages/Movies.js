@@ -4,6 +4,7 @@ import { searchMovies } from '../api/Api';
 import Button from '../components/Button';
 import MoviesGallery from 'components/MoviesGallery/MoviesGallery';
 import Searchbar from 'components/Searchbar/Searchbar';
+import { Loader } from 'components/Loader/Loader';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -12,18 +13,20 @@ const Movies = () => {
 
   const [totalResults, setTotalResults] = useState(0);
   const [activePage, setActivePage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!search) {
       return;
     }
-
+    setIsLoading(true);
     searchMovies(search, activePage)
       .then(({ results, total_pages }) => {
-        setMovies([...results]);
+        setMovies(prev => [...prev, ...results]);
         setTotalResults(total_pages);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(setIsLoading(false));
   }, [search, activePage]);
 
   // useMemo use !!!!!!!!!!!!!
@@ -40,6 +43,7 @@ const Movies = () => {
 
   return (
     <div>
+      {isLoading && <Loader />}
       <Searchbar onSubmit={updateQueryString} />
 
       <MoviesGallery movies={movies} />

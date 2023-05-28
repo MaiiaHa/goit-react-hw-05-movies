@@ -2,21 +2,25 @@ import { useEffect, useState } from 'react';
 import { getTrendingMovies } from '../api/Api';
 import Button from '../components/Button';
 import MoviesGallery from 'components/MoviesGallery/MoviesGallery';
+import { Loader } from 'components/Loader/Loader';
 
 const Home = () => {
   const [moviesList, setMoviesList] = useState([]);
   const [activePage, setActivePage] = useState(1);
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [totalResults, setTotalResults] = useState(0);
 
   useEffect(() => {
+    setIsLoading(true);
     getTrendingMovies(activePage)
-      .then(({ results }) =>
+      .then(({ results, total_results }) => {
+        setTotalResults(total_results);
         setMoviesList(prevRes => {
           return [...prevRes, ...results];
-        })
-      )
+        });
+      })
       .catch(err => console.log(err))
-      .finally(setLoading(true));
+      .finally(setIsLoading(false));
   }, [activePage]);
 
   const renderMore = () => {
@@ -25,8 +29,11 @@ const Home = () => {
 
   return (
     <>
+      {isLoading && <Loader />}
       <MoviesGallery movies={moviesList} />
-      {isLoading && <Button aria-label="Load more" onClick={renderMore} />}
+      {totalResults > moviesList.length && (
+        <Button aria-label="Load more" onClick={renderMore} />
+      )}
     </>
   );
 };

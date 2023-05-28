@@ -5,38 +5,51 @@ import { renderMovieDetails } from '../api/Api';
 import { IMAGE_URL } from '../api/Api';
 import { format } from 'date-fns';
 import css from './MovieDeatails.module.css';
+import { Loader } from 'components/Loader/Loader';
+import { FaChevronLeft } from 'react-icons/fa';
+import poster from '../../src/images/poster.webp';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState({});
   const location = useLocation();
   const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
+  const [isLoading, setIsLoading] = useState(false);
 
   //status_message if it was not fond games of trones 1399
 
   useEffect(() => {
+    setIsLoading(true);
+
     renderMovieDetails(movieId)
       .then(res => {
         setMovie(res);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(setIsLoading(false));
   }, [movieId]);
 
+  if (!movie) return;
+
   return (
-    <div className={css.Box}>
+    <section className={css.Box}>
       <div className={css.Details}>
-        <div>
-          <Link to={backLinkLocationRef.current} className={css.BackLink}>
-            Go back
-          </Link>
+        <div className={css.Image}>
           <img
             className={css.MovieImg}
-            src={`${IMAGE_URL}${movie.poster_path}`}
+            src={
+              movie.poster_path ? `${IMAGE_URL}${movie.poster_path}` : poster
+            }
             alt={movie.title}
           />
         </div>
-        <div>
-          <ul>
+        <div className={css.MovieInfo}>
+          <Link to={backLinkLocationRef.current} className={css.BackLink}>
+            <FaChevronLeft width={20} height={20} />
+            Go back
+          </Link>
+
+          <ul className={css.MovieData}>
             <li>
               <h1>
                 {movie.title}
@@ -44,42 +57,46 @@ const MovieDetails = () => {
                   (
                   {movie.release_date
                     ? format(new Date(movie.release_date), 'yyyy')
-                    : ''}
+                    : 'no info'}
                   )
                 </span>
               </h1>
             </li>
-            <li>Rating: {movie.vote_average}</li>
+            <li>
+              <h3>Rating </h3>
+              <p>{movie.vote_average ? movie.vote_average : 'no info'}</p>
+            </li>
             <li>
               <h3>Ganres</h3>
-              <p>{movie.genres?.map(({ name }) => name).join(', ')}</p>
+              <p>{movie?.genres?.map(({ name }) => name).join(', ')}</p>
             </li>
             <li>
               <h3>Overview</h3>
               <p>{movie.overview}</p>
             </li>
             <li>
-              <h3>Runtime:</h3>
-              <p> {movie.runtime}</p>
+              <h3>Runtime</h3>
+              <p> {movie?.runtime}</p>
+            </li>
+            <li>
+              <h2>Aditional information</h2>
+              <ul className={css.AdditionalInfo}>
+                <li>
+                  <Link to="cast">actors</Link>
+                </li>
+                <li>
+                  <Link to="reviews">reviews</Link>
+                </li>
+              </ul>
             </li>
           </ul>
         </div>
       </div>
 
-      <h2>Aditional information</h2>
-      {/* ---------------------- */}
-      <ul className={css.AdditionalInfo}>
-        <li>
-          <Link to="cast">cast</Link>
-        </li>
-        <li>
-          <Link to="reviews">reviews</Link>
-        </li>
-      </ul>
-      <Suspense fallback={<div>LOADING subpage...</div>}>
+      <Suspense fallback={isLoading && <Loader />}>
         <Outlet />
       </Suspense>
-    </div>
+    </section>
   );
 };
 export default MovieDetails;

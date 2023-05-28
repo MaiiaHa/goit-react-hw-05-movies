@@ -1,15 +1,36 @@
 .BackLink {
   margin-top: 20px;
+  align-items: center;
+  display: flex;
+  align-items: center;
 }
-/* .MovieImg {
-} */
+.Image {
+  min-width: 33%;
+}
+.MovieImg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
 .Details {
   display: flex;
+  gap: 10px;
 }
 .Box {
+  padding-top: 16px;
   padding-left: 20px;
   padding-right: 20px;
 }
 .AdditionalInfo {
   margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 10px;
+  font-weight: 600;
+}
+/* .MovieInfo {
+  padding-left: 20px;
+} */
+.MovieData {
+  padding: 0;
 }

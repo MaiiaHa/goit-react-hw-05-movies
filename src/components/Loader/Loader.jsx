@@ -5,16 +5,16 @@ const Loader = () => {
   return (
     <div className={css.Loader}>
       <Oval
-        height={80}
-        width={80}
-        color="#4fa94d"
+        height={40}
+        width={40}
+        color="#303f9f"
         wrapperStyle={{}}
         wrapperClass=""
         visible={true}
         ariaLabel="oval-loading"
-        secondaryColor="#4fa94d"
-        strokeWidth={2}
-        strokeWidthSecondary={2}
+        secondaryColor="#303f9f"
+        strokeWidth={5}
+        strokeWidthSecondary={5}
       />
     </div>
   );
