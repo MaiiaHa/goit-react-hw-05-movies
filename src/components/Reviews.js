@@ -16,6 +16,7 @@ const Reviews = () => {
 
     renderReviewDetails(movieId)
       .then(({ results, total_results }) => setReviewesList([...results]))
+      .catch(err => console.log(err))
       .finally(() => setIsLoading(false));
   }, [movieId]);
 

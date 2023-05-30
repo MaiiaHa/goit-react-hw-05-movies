@@ -1,13 +1,13 @@
 // /movies/:movieId
 import { Suspense, useRef, useEffect, useState } from 'react';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
-import { renderMovieDetails } from '../api/Api';
-import { IMAGE_URL } from '../api/Api';
+import { renderMovieDetails } from '../../api/Api';
+import { IMAGE_URL } from '../../api/Api';
 import { format } from 'date-fns';
 import css from './MovieDeatails.module.css';
 import { Loader } from 'components/Loader/Loader';
 import { FaChevronLeft } from 'react-icons/fa';
-import poster from '../../src/images/poster.webp';
+import poster from '../../images/poster.webp';
 
 const MovieDetails = () => {
   const { movieId } = useParams();

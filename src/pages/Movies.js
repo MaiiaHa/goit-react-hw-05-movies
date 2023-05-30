@@ -10,9 +10,11 @@ const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get('search') ?? '';
+  const page = searchParams.get('page') ?? '';
 
   const [totalResults, setTotalResults] = useState(0);
   const [activePage, setActivePage] = useState(1);
+
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -20,25 +22,28 @@ const Movies = () => {
       return;
     }
     setIsLoading(true);
-    searchMovies(search, activePage)
+    searchMovies(search, page)
       .then(({ results, total_pages }) => {
         setMovies(prev => [...prev, ...results]);
         setTotalResults(total_pages);
       })
       .catch(err => console.log(err))
       .finally(setIsLoading(false));
-  }, [search, activePage]);
-
-  // useMemo use !!!!!!!!!!!!!
-  // const visibleMovies = movies.filter(movie => movie.includes(search));
+  }, [search, page]);
 
   const updateQueryString = e => {
-    setSearchParams({ search: e });
+    setSearchParams({ search: e, page: activePage });
+
+    setMovies([]);
+    setActivePage(1);
+
     console.log(e);
+    console.log(activePage);
   };
 
   const renderMore = () => {
     setActivePage(activePage => activePage + 1);
+    setSearchParams({ search: search, page: activePage + 1 });
   };
 
   return (

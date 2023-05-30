@@ -17,43 +17,62 @@ export function getTrendingMovies(page = 1) {
   return fetch(
     `${URL}/trending/all/day?language=en-US&page=${page}&api_key=${KEY}`,
     options
-  )
-    .then(response => response.json())
-    .catch(err => console.error(err));
+  ).then(response => {
+    if (!response.ok) {
+      return Promise.reject(
+        new Error(`There are not images in trending films`)
+      );
+    }
+    return response.json();
+  });
 }
 
 export function searchMovies(searchInput, page = 1) {
   return fetch(
     `${URL}/search/movie?include_adult=false&language=en-US&query=${searchInput}&page=${page}&api_key=${KEY}`,
     options
-  )
-    .then(response => response.json())
-    .catch(err => console.error(err));
+  ).then(response => {
+    if (!response.ok) {
+      return Promise.reject(
+        new Error(`There are not images for ${searchInput} search request`)
+      );
+    }
+    return response.json();
+  });
 }
 
 export function renderMovieDetails(movie_id) {
   return fetch(
     `${URL}/movie/${movie_id}?language=en-US&api_key=${KEY}`,
     options
-  )
-    .then(response => response.json())
-    .catch(err => console.error(err));
+  ).then(response => {
+    if (!response.ok) {
+      return Promise.reject(new Error(`There are not movie data`));
+    }
+    return response.json();
+  });
 }
 
 export function renderCastDetails(movie_id) {
   return fetch(
     `${URL}/movie/${movie_id}/credits?language=en-US&api_key=${KEY}`,
     options
-  )
-    .then(response => response.json())
-    .catch(err => console.error(err));
+  ).then(response => {
+    if (!response.ok) {
+      return Promise.reject(new Error(`There are not cast data`));
+    }
+    return response.json();
+  });
 }
 
 export function renderReviewDetails(movie_id) {
   return fetch(
     `${URL}/movie/${movie_id}/reviews?language=en-US&page=1&api_key=${KEY}`,
     options
-  )
-    .then(response => response.json())
-    .catch(err => console.error(err));
+  ).then(response => {
+    if (!response.ok) {
+      return Promise.reject(new Error(`There are not review data`));
+    }
+    return response.json();
+  });
 }
