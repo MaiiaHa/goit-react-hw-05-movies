@@ -26,7 +26,7 @@ export const Cast = () => {
 
   return (
     <div>
-      <h2>Casts</h2>
+      <h2>Actors</h2>
       {isLoading && <Loader />}
 
       <ul className={css.CastGallery}>

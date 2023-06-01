@@ -11,7 +11,7 @@ import poster from '../../images/poster.webp';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
-  const [movie, setMovie] = useState({});
+  const [movie, setMovie] = useState(null);
   const location = useLocation();
   const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
   const [isLoading, setIsLoading] = useState(false);

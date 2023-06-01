@@ -33,12 +33,8 @@ const Movies = () => {
 
   const updateQueryString = e => {
     setSearchParams({ search: e, page: activePage });
-
     setMovies([]);
     setActivePage(1);
-
-    console.log(e);
-    console.log(activePage);
   };
 
   const renderMore = () => {
@@ -50,9 +46,7 @@ const Movies = () => {
     <div>
       {isLoading && <Loader />}
       <Searchbar onSubmit={updateQueryString} />
-
       <MoviesGallery movies={movies} />
-
       {movies.length !== totalResults && movies.length !== 0 && (
         <Button aria-label="Load more" onClick={renderMore} />
       )}
